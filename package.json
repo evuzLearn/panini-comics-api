@@ -12,6 +12,10 @@
     "lint": "eslint ./src/**/*.ts",
     "prettier": "prettier --write \"./src/**/*.ts\""
   },
+  "dependencies": {
+    "depsin": "^1.2.0",
+    "ts-domain": "^1.4.1"
+  },
   "devDependencies": {
     "@types/node": "^12.6.9",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
