@@ -1,0 +1,55 @@
+{
+  "name": "panini-comics-api",
+  "version": "0.0.1",
+  "main": "index.js",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "start": "npm run build && node dist/main.js",
+    "dev:start": "node -r ts-node/register ./src/main.ts",
+    "dev": "nodemon",
+    "build": "tsc",
+    "lint": "eslint ./src/**/*.ts",
+    "prettier": "prettier --write \"./src/**/*.ts\""
+  },
+  "devDependencies": {
+    "@types/node": "^12.6.9",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "dotenv": "^8.0.0",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^3.0.2",
+    "lint-staged": "^9.2.1",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.18.2",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint",
+      "git add"
+    ]
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "npm run dev:start",
+    "ext": "ts"
+  }
+}
