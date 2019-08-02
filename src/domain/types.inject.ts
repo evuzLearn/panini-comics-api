@@ -9,3 +9,8 @@ export const Services = {
 export const UseCases = {
   ScrapingMarvelCollections: 'ScrapingMarvelCollectionsUseCase',
 };
+
+export const Utils = {
+  got: 'got',
+  cheerio: 'cheerio',
+};

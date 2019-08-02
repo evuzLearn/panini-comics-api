@@ -13,10 +13,14 @@
     "prettier": "prettier --write \"./src/**/*.ts\""
   },
   "dependencies": {
-    "depsin": "^1.2.0",
+    "cheerio": "^1.0.0-rc.3",
+    "depsin": "^1.2.3",
+    "got": "^9.6.0",
     "ts-domain": "^1.4.1"
   },
   "devDependencies": {
+    "@types/cheerio": "^0.22.12",
+    "@types/got": "^9.6.5",
     "@types/node": "^12.6.9",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
