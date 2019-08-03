@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "depsin": "^1.2.3",
+    "depsin": "^1.2.4",
     "got": "^9.6.0",
     "ts-domain": "^1.4.1"
   },

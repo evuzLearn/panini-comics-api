@@ -832,10 +832,10 @@ delegates@^1.0.0:
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
   integrity sha1-hMbhWbgZBP3KWaDvRM2HDTElD5o=
 
-depsin@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/depsin/-/depsin-1.2.3.tgz#8285108309076d2c9b5a1cd62d8404376ef6e64d"
-  integrity sha512-4NNiz/8hlmG3yJbeUv3JQTnWFges+SBH8Ff1C/bbu565gUSuaCWbaeaH+D4rYuiI1ARyLLuYypB2b9/ixLDrwQ==
+depsin@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/depsin/-/depsin-1.2.4.tgz#7098d06a061bb904ac6431a5b4509a1c92660f46"
+  integrity sha512-au8CNEQnVerxApybEXl1vuMeHLE/tp9XFFC1f4WYSVMpIumZjUopWemJE3aFExVeZZg9nleQEl6Xp7y9PoRDYA==
 
 detect-libc@^1.0.2:
   version "1.0.3"
