@@ -13,4 +13,5 @@ export const UseCases = {
 export const Utils = {
   got: 'got',
   cheerio: 'cheerio',
+  config: 'config',
 };

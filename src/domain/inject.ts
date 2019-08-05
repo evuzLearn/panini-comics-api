@@ -7,8 +7,13 @@ import { PaniniScrapingRepository } from './Scraping/Repositories/PaniniScraping
 import { ScrapingMarvelCollectionsService } from './Scraping/Services/ScrapingMarvelCollectionsService';
 import { ScrapingMarvelCollectionsUseCase } from './Scraping/UseCases/ScrapingMarvelCollectionsUseCase';
 
+const config = {
+  requestDelay: 1000,
+};
+
 export const container = new DepInjection()
   .set(Utils.got, got)
+  .set(Utils.config, config)
   .register(Repositories.ScrapingMarvel, PaniniScrapingRepository)
   .register(Services.ScrapingMarvelCollections, ScrapingMarvelCollectionsService)
   .register(UseCases.ScrapingMarvelCollections, ScrapingMarvelCollectionsUseCase);
