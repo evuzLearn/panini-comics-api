@@ -1,5 +1,6 @@
+import { Comic } from './Comic';
+
 export interface Collection {
-  id: number;
   name: string;
-  comics: any[];
+  comics: Comic[];
 }

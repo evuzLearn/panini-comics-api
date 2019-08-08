@@ -1,5 +1,6 @@
+import { Collection } from './Collection';
+
 export interface Comic {
-  id: number;
   title: string;
   subtitle: string;
   description: string;
@@ -8,4 +9,5 @@ export interface Comic {
   pages: number;
   price: number;
   releaseDate: number;
+  serie?: Collection;
 }

@@ -24,7 +24,7 @@ export class PaniniScrapingRepository implements ScrapingRepository {
       return collectionsLinks.map(collecion => {
         return {
           link: collecion.link,
-          collection: { id: null, name: collecion.text, comics: [] },
+          collection: { name: collecion.text, comics: [] },
         };
       });
     });

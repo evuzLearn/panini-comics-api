@@ -16,11 +16,13 @@
     "cheerio": "^1.0.0-rc.3",
     "depsin": "^1.2.4",
     "got": "^9.6.0",
+    "mongoose": "^5.6.8",
     "ts-domain": "^1.4.1"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.12",
     "@types/got": "^9.6.5",
+    "@types/mongoose": "^5.5.11",
     "@types/node": "^12.6.9",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
