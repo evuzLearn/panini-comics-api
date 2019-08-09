@@ -21,28 +21,29 @@ export class ScrapingMarvelCollectionsService implements IService {
 
     return Promise.all(
       collections.slice(0, 5).map(({ link, collection }, i, { length }) => {
-        return this.saveCollectionService.execute(collection).then(collectionSaved => {
-          return new Promise(resolve => {
-            setTimeout(() => {
-              this.marvelRepository
-                .getComics(link)
-                .then(comics => {
-                  console.log(`${i}: RES => ${collection.name}`);
-                  collection.comics = comics;
-                  return Promise.all(
-                    comics.map(comic => {
-                      comic.serie = collectionSaved;
-                      return this.saveComicService.execute(comic);
-                    }),
-                  );
-                })
-                .then(() => resolve(collection));
-            }, requestDelay * i);
-            if (i && length - 1 === i) {
-              const seconds = (requestDelay * i) / 1000;
-              console.log(`The last request will be made in ${seconds} seconds`);
-            }
-          });
+        return new Promise(resolve => {
+          setTimeout(() => {
+            this.marvelRepository
+              .getComics(link)
+              .then(comics => {
+                console.log(`${i}: RES => ${collection.name}`);
+                collection.comics = comics;
+                return Promise.all(
+                  comics.map(comic => {
+                    return this.saveComicService.execute(comic);
+                  }),
+                );
+              })
+              .then(comics => {
+                collection.comics = comics;
+                return this.saveCollectionService.execute(collection);
+              })
+              .then(() => resolve(collection));
+          }, requestDelay * i);
+          if (i && length - 1 === i) {
+            const seconds = (requestDelay * i) / 1000;
+            console.log(`The last request will be made in ${seconds} seconds`);
+          }
         });
       }),
     );

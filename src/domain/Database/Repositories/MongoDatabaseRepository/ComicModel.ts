@@ -13,7 +13,6 @@ const comicSchema = new mongoose.Schema<IComic>({
   pages: Number,
   price: Number,
   releaseDate: Number,
-  serie: { type: Schema.Types.ObjectId, ref: 'Collection' },
 });
 
 export const ComicModel = mongoose.model<IComic>('Comic', comicSchema);
