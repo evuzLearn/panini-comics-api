@@ -6,6 +6,7 @@ import { Collection } from '../../../Entities/Collection';
 import { Comic } from '../../../Entities/Comic';
 import { Utils } from '../../../types.inject';
 import { ComicModel } from './ComicModel';
+import { CollectionModel } from './CollectionModel';
 
 export class MongoDatabaseRepository implements DatabaseRepository {
   private get db() {
@@ -20,12 +21,15 @@ export class MongoDatabaseRepository implements DatabaseRepository {
     return mongoose.connect(this.db, { useNewUrlParser: true });
   }
 
-  saveCollection(collection: Collection) {
-    return Promise.resolve(collection);
+  async saveCollection(collection: Collection) {
+    const model = new CollectionModel(collection);
+    const doc = await model.save();
+    return doc.toJSON();
   }
 
-  saveComic(comic: Comic) {
-    const doc = new ComicModel(comic);
-    return doc.save();
+  async saveComic(comic: Comic) {
+    const model = new ComicModel(comic);
+    const doc = await model.save();
+    return doc.toJSON();
   }
 }

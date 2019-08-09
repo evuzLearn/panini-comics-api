@@ -4,19 +4,24 @@ import { inject } from 'depsin';
 import { Repositories, Utils, Services } from '../../types.inject';
 import { ScrapingRepository } from '../Repositories/ScrapingRepository';
 import { SaveComicService } from '../../Database/Services/SaveComicService';
+import { SaveCollectionService } from '../../Database/Services/SaveCollectionService';
+import { Collection } from '../../Entities/Collection';
 
 export class ScrapingMarvelCollectionsService implements IService {
   constructor(
     @inject(Repositories.ScrapingMarvel) private marvelRepository: ScrapingRepository,
     @inject(Services.SaveComic) private saveComicService: SaveComicService,
+    @inject(Services.SaveCollection) private saveCollectionService: SaveCollectionService,
     @inject(Utils.config) private config: any,
   ) {}
 
-  execute() {
+  async execute(): Promise<Collection[]> {
     const { requestDelay } = this.config;
-    return this.marvelRepository.getCollections().then(collectionsWithLinks => {
-      return Promise.all(
-        collectionsWithLinks.slice(0, 1).map(({ link, collection }, i) => {
+    const collections = await this.marvelRepository.getCollections();
+
+    return Promise.all(
+      collections.slice(0, 5).map(({ link, collection }, i, { length }) => {
+        return this.saveCollectionService.execute(collection).then(collectionSaved => {
           return new Promise(resolve => {
             setTimeout(() => {
               this.marvelRepository
@@ -24,17 +29,22 @@ export class ScrapingMarvelCollectionsService implements IService {
                 .then(comics => {
                   console.log(`${i}: RES => ${collection.name}`);
                   collection.comics = comics;
-                  return Promise.all(comics.map(comic => this.saveComicService.execute(comic)));
+                  return Promise.all(
+                    comics.map(comic => {
+                      comic.serie = collectionSaved;
+                      return this.saveComicService.execute(comic);
+                    }),
+                  );
                 })
                 .then(() => resolve(collection));
             }, requestDelay * i);
-            if (collectionsWithLinks.length - 1 === i) {
+            if (i && length - 1 === i) {
               const seconds = (requestDelay * i) / 1000;
               console.log(`The last request will be made in ${seconds} seconds`);
             }
           });
-        }),
-      );
-    });
+        });
+      }),
+    );
   }
 }

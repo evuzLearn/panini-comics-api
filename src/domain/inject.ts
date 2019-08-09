@@ -11,6 +11,8 @@ import { InitDatabaseService } from './Database/Services/InitDatabaseService';
 import { InitDatabaseUseCase } from './Database/UseCases/InitDatabaseUseCase';
 import { SaveComicService } from './Database/Services/SaveComicService';
 import { SaveComicUseCase } from './Database/UseCases/SaveComicUseCase';
+import { SaveCollectionService } from './Database/Services/SaveCollectionService';
+import { SaveCollectionUseCase } from './Database/UseCases/SaveCollectionUseCase';
 
 const config = {
   requestDelay: 1000,
@@ -27,4 +29,6 @@ export const container = new DepInjection()
   .register(Services.InitDatabase, InitDatabaseService)
   .register(UseCases.InitDatabase, InitDatabaseUseCase)
   .register(Services.SaveComic, SaveComicService)
-  .register(UseCases.SaveComic, SaveComicUseCase);
+  .register(UseCases.SaveComic, SaveComicUseCase)
+  .register(Services.SaveCollection, SaveCollectionService)
+  .register(UseCases.SaveCollection, SaveCollectionUseCase);
