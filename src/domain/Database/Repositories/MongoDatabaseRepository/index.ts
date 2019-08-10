@@ -24,6 +24,7 @@ export class MongoDatabaseRepository implements DatabaseRepository {
     return mongoose.connect(this.db, { useNewUrlParser: true }).then(async con => {
       if (this.config.drop_db) {
         await con.connection.db.dropDatabase();
+        console.log('DB is dropped');
       }
       return con;
     });

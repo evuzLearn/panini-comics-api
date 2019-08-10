@@ -8,6 +8,7 @@
     "start": "npm run build && node dist/main.js",
     "dev:start": "node -r dotenv/config -r ts-node/register ./src/main.ts",
     "dev": "nodemon",
+    "dev:mock": "cross-env MOCK=true nodemon",
     "build": "tsc",
     "lint": "eslint ./src/**/*.ts",
     "prettier": "prettier --write \"./src/**/*.ts\""
