@@ -7,18 +7,26 @@ import { Comic } from '../../../Entities/Comic';
 import { Utils } from '../../../types.inject';
 import { ComicModel } from './ComicModel';
 import { CollectionModel } from './CollectionModel';
+import { Config } from '../../../config';
 
 export class MongoDatabaseRepository implements DatabaseRepository {
   private get db() {
-    if (!this.config.db) {
+    const { db_url } = this.config;
+    if (!db_url) {
       throw Error('A db configuration parameter is required.');
     }
-    return this.config.db;
+    return `mongodb://${db_url}`;
   }
-  constructor(@inject(Utils.config) private config) {}
+
+  constructor(@inject(Utils.config) private config: Config) {}
 
   init() {
-    return mongoose.connect(this.db, { useNewUrlParser: true });
+    return mongoose.connect(this.db, { useNewUrlParser: true }).then(async con => {
+      if (this.config.drop_db) {
+        await con.connection.db.dropDatabase();
+      }
+      return con;
+    });
   }
 
   async saveCollection(collection: Collection) {

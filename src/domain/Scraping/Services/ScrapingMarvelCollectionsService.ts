@@ -6,17 +6,18 @@ import { ScrapingRepository } from '../Repositories/ScrapingRepository';
 import { SaveComicService } from '../../Database/Services/SaveComicService';
 import { SaveCollectionService } from '../../Database/Services/SaveCollectionService';
 import { Collection } from '../../Entities/Collection';
+import { Config } from '../../config';
 
 export class ScrapingMarvelCollectionsService implements IService {
   constructor(
     @inject(Repositories.ScrapingMarvel) private marvelRepository: ScrapingRepository,
     @inject(Services.SaveComic) private saveComicService: SaveComicService,
     @inject(Services.SaveCollection) private saveCollectionService: SaveCollectionService,
-    @inject(Utils.config) private config: any,
+    @inject(Utils.config) private config: Config,
   ) {}
 
   async execute(): Promise<Collection[]> {
-    const { requestDelay } = this.config;
+    const { request_delay } = this.config;
     const collections = await this.marvelRepository.getCollections();
 
     return Promise.all(
@@ -39,9 +40,9 @@ export class ScrapingMarvelCollectionsService implements IService {
                 return this.saveCollectionService.execute(collection);
               })
               .then(() => resolve(collection));
-          }, requestDelay * i);
+          }, request_delay * i);
           if (i && length - 1 === i) {
-            const seconds = (requestDelay * i) / 1000;
+            const seconds = (request_delay * i) / 1000;
             console.log(`The last request will be made in ${seconds} seconds`);
           }
         });

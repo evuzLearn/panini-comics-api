@@ -13,11 +13,7 @@ import { SaveComicService } from './Database/Services/SaveComicService';
 import { SaveComicUseCase } from './Database/UseCases/SaveComicUseCase';
 import { SaveCollectionService } from './Database/Services/SaveCollectionService';
 import { SaveCollectionUseCase } from './Database/UseCases/SaveCollectionUseCase';
-
-const config = {
-  requestDelay: 1000,
-  db: 'mongodb://localhost:27017/panini',
-};
+import { config } from './config';
 
 export const container = new DepInjection()
   .set(Utils.got, got)
