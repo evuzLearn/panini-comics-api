@@ -1,6 +1,5 @@
 import { domain } from './domain/domain';
-import { ComicModel } from './domain/Database/Repositories/MongoDatabaseRepository/ComicModel';
-import { CollectionModel } from './domain/Database/Repositories/MongoDatabaseRepository/CollectionModel';
+import { server } from './server';
 
 domain
   .get({ useCase: 'initDatabase' })
@@ -11,5 +10,6 @@ domain
   })
   .then(result => {
     console.log('Result', result);
+    return server.start();
   })
   .catch(err => console.error(err));
