@@ -9,13 +9,23 @@ export class MockDatabaseRepository implements DatabaseRepository {
   init(): Promise<any> {
     return Promise.resolve();
   }
+
   saveCollection(collection: Collection): Promise<Collection> {
     this.collections.set(this.idGenerator(), collection);
+    console.log(this.collections.keys());
     return Promise.resolve(collection);
   }
+
   saveComic(comic: Comic): Promise<Comic> {
     this.comics.set(this.idGenerator(), comic);
     return Promise.resolve(comic);
+  }
+
+  getCollectionById(id): Promise<Collection> {
+    if (!this.collections.has(id)) {
+      return Promise.reject();
+    }
+    return Promise.resolve(this.collections.get(id));
   }
 
   private idGenerator(): string {

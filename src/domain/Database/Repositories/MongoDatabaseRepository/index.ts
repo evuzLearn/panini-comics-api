@@ -41,4 +41,11 @@ export class MongoDatabaseRepository implements DatabaseRepository {
     const doc = await model.save();
     return doc.toJSON();
   }
+
+  async getCollectionById(id) {
+    const collection = await CollectionModel.findById(id)
+      .populate('comics')
+      .exec();
+    return collection.toJSON();
+  }
 }

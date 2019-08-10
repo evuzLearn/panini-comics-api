@@ -8,6 +8,7 @@ export const Services = {
   InitDatabase: 'InitDatabaseService',
   SaveComic: 'SaveComicService',
   SaveCollection: 'SaveCollectionService',
+  GetCollectionById: 'GetCollectionByIdService',
 };
 
 export const UseCases = {
@@ -15,6 +16,7 @@ export const UseCases = {
   InitDatabase: 'InitDatabaseUseCase',
   SaveComic: 'SaveComicUseCase',
   SaveCollection: 'SaveCollectionUseCase',
+  GetCollectionById: 'GetCollectionByIdUseCase',
 };
 
 export const Utils = {
