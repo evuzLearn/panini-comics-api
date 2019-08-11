@@ -5,6 +5,7 @@ import { container } from './inject';
 import { ScrapingMarvelCollectionsUseCase } from './Scraping/UseCases/ScrapingMarvelCollectionsUseCase';
 import { InitDatabaseUseCase } from './Database/UseCases/InitDatabaseUseCase';
 import { GetCollectionByIdUseCase } from './Database/UseCases/GetCollectionByIdUseCase';
+import { SearchCollectionUseCase } from './Database/UseCases/SearchCollectionUseCase';
 
 export const domain = new Domain({
   config: container.get<any>(Utils.config),
@@ -12,6 +13,7 @@ export const domain = new Domain({
     scrapingMarvelCollections: container.get<ScrapingMarvelCollectionsUseCase>(UseCases.ScrapingMarvelCollections),
     initDatabase: container.get<InitDatabaseUseCase>(UseCases.InitDatabase),
     getCollectionById: container.get<GetCollectionByIdUseCase>(UseCases.GetCollectionById),
+    searchCollection: container.get<SearchCollectionUseCase>(UseCases.SearchCollection),
   },
 });
 

@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+
 import { AppDomain } from '../../../domain/domain';
 
 export function getCollectionById(domain: AppDomain) {

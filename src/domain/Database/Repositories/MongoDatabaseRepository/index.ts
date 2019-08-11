@@ -48,4 +48,11 @@ export class MongoDatabaseRepository implements DatabaseRepository {
       .exec();
     return collection.toJSON();
   }
+
+  async searchCollection(name: string) {
+    const collections = await CollectionModel.find({ name: new RegExp(`${name}`, 'i') })
+      .populate('comics')
+      .exec();
+    return collections.map(collection => collection.toJSON());
+  }
 }

@@ -9,6 +9,7 @@ export const Services = {
   SaveComic: 'SaveComicService',
   SaveCollection: 'SaveCollectionService',
   GetCollectionById: 'GetCollectionByIdService',
+  SearchCollection: 'SearchCollectionService',
 };
 
 export const UseCases = {
@@ -17,6 +18,7 @@ export const UseCases = {
   SaveComic: 'SaveComicUseCase',
   SaveCollection: 'SaveCollectionUseCase',
   GetCollectionById: 'GetCollectionByIdUseCase',
+  SearchCollection: 'SearchCollectionUseCase',
 };
 
 export const Utils = {
