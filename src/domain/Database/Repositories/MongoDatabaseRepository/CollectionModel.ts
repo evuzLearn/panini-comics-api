@@ -9,4 +9,8 @@ const collectionSchema = new mongoose.Schema<ICollection>({
   comics: [{ type: Schema.Types.ObjectId, ref: 'Comic' }],
 });
 
+collectionSchema.set('toJSON', {
+  versionKey: false,
+});
+
 export const CollectionModel = mongoose.model<ICollection>('Collection', collectionSchema);

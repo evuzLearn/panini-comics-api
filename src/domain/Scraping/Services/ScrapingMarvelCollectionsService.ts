@@ -39,7 +39,10 @@ export class ScrapingMarvelCollectionsService implements IService {
                 collection.comics = comics;
                 return this.saveCollectionService.execute(collection);
               })
-              .then(() => resolve(collection));
+              .then(collectionSaved => {
+                collectionSaved.comics = collection.comics;
+                resolve(collectionSaved);
+              });
           }, request_delay * i);
           if (i && length - 1 === i) {
             const seconds = (request_delay * i) / 1000;

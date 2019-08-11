@@ -15,4 +15,8 @@ const comicSchema = new mongoose.Schema<IComic>({
   releaseDate: Number,
 });
 
+comicSchema.set('toJSON', {
+  versionKey: false,
+});
+
 export const ComicModel = mongoose.model<IComic>('Comic', comicSchema);
