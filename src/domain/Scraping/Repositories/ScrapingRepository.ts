@@ -9,4 +9,5 @@ export interface IScrapingCollection {
 export interface ScrapingRepository {
   getCollections: () => Promise<IScrapingCollection[]>;
   getComics: (url: string) => Promise<Comic[]>;
+  getComic: (url: string) => Promise<Comic>;
 }
