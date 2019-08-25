@@ -11,6 +11,7 @@ export const Services = {
   SearchCollection: 'SearchCollectionService',
   SaveComic: 'SaveComicService',
   GetComicById: 'GetComicByIdService',
+  SearchComic: 'SearchComicService',
 };
 
 export const UseCases = {
@@ -21,6 +22,7 @@ export const UseCases = {
   SearchCollection: 'SearchCollectionUseCase',
   SaveComic: 'SaveComicUseCase',
   GetComicById: 'GetComicByIdUseCase',
+  SearchComic: 'SearchComicUseCase',
 };
 
 export const Utils = {

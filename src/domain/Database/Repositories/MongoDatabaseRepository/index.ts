@@ -60,4 +60,9 @@ export class MongoDatabaseRepository implements DatabaseRepository {
     const comic = await ComicModel.findById(id);
     return comic.toJSON();
   }
+
+  async searchComic(title: string) {
+    const comics = await ComicModel.find({ title: new RegExp(`${title}`, 'i') });
+    return comics.map(comic => comic.toJSON());
+  }
 }

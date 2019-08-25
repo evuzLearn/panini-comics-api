@@ -8,4 +8,5 @@ export interface DatabaseRepository {
   searchCollection(name: string): Promise<Collection[]>;
   saveComic(comic: Comic): Promise<Comic>;
   getComicById(id: any): Promise<Comic>;
+  searchComic(title: string): Promise<Comic[]>;
 }

@@ -16,6 +16,7 @@ import { SaveCollectionService } from './Database/Services/SaveCollectionService
 import { GetCollectionByIdService } from './Database/Services/GetCollectionByIdService';
 import { SearchCollectionService } from './Database/Services/SearchCollectionService';
 import { GetComicByIdService } from './Database/Services/GetComicByIdService';
+import { SearchComicService } from './Database/Services/SearchComicService';
 
 import { ScrapingMarvelCollectionsUseCase } from './Scraping/UseCases/ScrapingMarvelCollectionsUseCase';
 import { InitDatabaseUseCase } from './Database/UseCases/InitDatabaseUseCase';
@@ -24,6 +25,7 @@ import { SaveCollectionUseCase } from './Database/UseCases/SaveCollectionUseCase
 import { GetCollectionByIdUseCase } from './Database/UseCases/GetCollectionByIdUseCase';
 import { SearchCollectionUseCase } from './Database/UseCases/SearchCollectionUseCase';
 import { GetComicByIdUseCase } from './Database/UseCases/GetComicByIdUseCase';
+import { SearchComicUseCase } from './Database/UseCases/SearchComicUseCase';
 
 const useMock = config.mock;
 const scrapingMarvelRepository: any = useMock ? MockScrapingRepository : PaniniScrapingRepository;
@@ -47,4 +49,6 @@ export const container = new DepInjection()
   .register(Services.SaveComic, SaveComicService)
   .register(UseCases.SaveComic, SaveComicUseCase)
   .register(Services.GetComicById, GetComicByIdService)
-  .register(UseCases.GetComicById, GetComicByIdUseCase);
+  .register(UseCases.GetComicById, GetComicByIdUseCase)
+  .register(Services.SearchComic, SearchComicService)
+  .register(UseCases.SearchComic, SearchComicUseCase);

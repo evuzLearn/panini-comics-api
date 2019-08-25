@@ -7,6 +7,7 @@ import { InitDatabaseUseCase } from './Database/UseCases/InitDatabaseUseCase';
 import { GetCollectionByIdUseCase } from './Database/UseCases/GetCollectionByIdUseCase';
 import { SearchCollectionUseCase } from './Database/UseCases/SearchCollectionUseCase';
 import { GetComicByIdUseCase } from './Database/UseCases/GetComicByIdUseCase';
+import { SearchComicUseCase } from './Database/UseCases/SearchComicUseCase';
 
 export const domain = new Domain({
   config: container.get<any>(Utils.config),
@@ -16,6 +17,7 @@ export const domain = new Domain({
     getCollectionById: container.get<GetCollectionByIdUseCase>(UseCases.GetCollectionById),
     searchCollection: container.get<SearchCollectionUseCase>(UseCases.SearchCollection),
     getComicById: container.get<GetComicByIdUseCase>(UseCases.GetComicById),
+    searchComic: container.get<SearchComicUseCase>(UseCases.SearchComic),
   },
 });
 

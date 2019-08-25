@@ -40,6 +40,10 @@ export class MockDatabaseRepository implements DatabaseRepository {
     return Promise.resolve(Array.from(this.collections.values()).filter(collection => collection.name.includes(name)));
   }
 
+  searchComic(title: string): Promise<Comic[]> {
+    return Promise.resolve(Array.from(this.comics.values()).filter(comic => comic.title.includes(title)));
+  }
+
   private idGenerator(): string {
     return Math.random()
       .toString(36)
