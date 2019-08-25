@@ -6,19 +6,21 @@ export const Repositories = {
 export const Services = {
   ScrapingMarvelCollections: 'ScrapingMarvelCollectionsService',
   InitDatabase: 'InitDatabaseService',
-  SaveComic: 'SaveComicService',
   SaveCollection: 'SaveCollectionService',
   GetCollectionById: 'GetCollectionByIdService',
   SearchCollection: 'SearchCollectionService',
+  SaveComic: 'SaveComicService',
+  GetComicById: 'GetComicByIdService',
 };
 
 export const UseCases = {
   ScrapingMarvelCollections: 'ScrapingMarvelCollectionsUseCase',
   InitDatabase: 'InitDatabaseUseCase',
-  SaveComic: 'SaveComicUseCase',
   SaveCollection: 'SaveCollectionUseCase',
   GetCollectionById: 'GetCollectionByIdUseCase',
   SearchCollection: 'SearchCollectionUseCase',
+  SaveComic: 'SaveComicUseCase',
+  GetComicById: 'GetComicByIdUseCase',
 };
 
 export const Utils = {

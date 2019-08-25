@@ -7,4 +7,5 @@ export interface DatabaseRepository {
   getCollectionById(id: any): Promise<Collection>;
   searchCollection(name: string): Promise<Collection[]>;
   saveComic(comic: Comic): Promise<Comic>;
+  getComicById(id: any): Promise<Comic>;
 }

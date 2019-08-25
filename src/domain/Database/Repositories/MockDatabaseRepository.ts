@@ -12,12 +12,13 @@ export class MockDatabaseRepository implements DatabaseRepository {
 
   saveCollection(collection: Collection): Promise<Collection> {
     this.collections.set(this.idGenerator(), collection);
-    console.log(this.collections.keys());
+    console.log('Collection:', this.collections.keys());
     return Promise.resolve(collection);
   }
 
   saveComic(comic: Comic): Promise<Comic> {
     this.comics.set(this.idGenerator(), comic);
+    console.log('Comic:', this.comics.keys());
     return Promise.resolve(comic);
   }
 
@@ -26,6 +27,13 @@ export class MockDatabaseRepository implements DatabaseRepository {
       return Promise.reject();
     }
     return Promise.resolve(this.collections.get(id));
+  }
+
+  getComicById(id): Promise<Comic> {
+    if (!this.comics.has(id)) {
+      return Promise.reject();
+    }
+    return Promise.resolve(this.comics.get(id));
   }
 
   searchCollection(name: string): Promise<Collection[]> {

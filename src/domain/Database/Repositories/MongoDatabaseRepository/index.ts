@@ -36,12 +36,6 @@ export class MongoDatabaseRepository implements DatabaseRepository {
     return doc.toJSON();
   }
 
-  async saveComic(comic: Comic) {
-    const model = new ComicModel(comic);
-    const doc = await model.save();
-    return doc.toJSON();
-  }
-
   async getCollectionById(id) {
     const collection = await CollectionModel.findById(id)
       .populate('comics')
@@ -54,5 +48,16 @@ export class MongoDatabaseRepository implements DatabaseRepository {
       .populate('comics')
       .exec();
     return collections.map(collection => collection.toJSON());
+  }
+
+  async saveComic(comic: Comic) {
+    const model = new ComicModel(comic);
+    const doc = await model.save();
+    return doc.toJSON();
+  }
+
+  async getComicById(id) {
+    const comic = await ComicModel.findById(id);
+    return comic.toJSON();
   }
 }
