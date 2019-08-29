@@ -22,10 +22,12 @@ export class PaniniScrapingRepository implements ScrapingRepository {
       const $ = cheerio.load(res.body);
       const collectionsLinks = getLinks($('#content li > a'));
       collectionsLinks.shift(); // Remove "Ofertas especiales"
-      return collectionsLinks.map(collecion => {
+      return collectionsLinks.map(collection => {
+        const url = new URL(collection.link);
+        const id = url.searchParams.get('pnn_collana_edicola');
         return {
-          link: collecion.link,
-          collection: { name: collecion.text, comics: [] },
+          link: collection.link,
+          collection: { id, name: collection.text, comics: [] },
         };
       });
     });
@@ -57,6 +59,7 @@ export class PaniniScrapingRepository implements ScrapingRepository {
   getComic(url: string) {
     return this.got(url).then(res => {
       const $ = cheerio.load(res.body);
+      const id = /\d+/.exec($('.price-container .price').attr().id)[0];
       const subtitle = cleanString($('.productDetailHeader h1 > .subtitle').text());
       const title = cleanString(
         $('.productDetailHeader h1')
@@ -72,6 +75,7 @@ export class PaniniScrapingRepository implements ScrapingRepository {
         .replace(',', '.');
       const releaseDate = dateToTime($('#data-pubblicazione h3').text());
       return {
+        id,
         title,
         subtitle,
         description,

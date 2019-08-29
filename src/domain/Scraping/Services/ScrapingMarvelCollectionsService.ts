@@ -2,7 +2,7 @@ import { IService } from 'ts-domain';
 import { inject } from 'depsin';
 
 import { Repositories, Utils, Services } from '../../types.inject';
-import { ScrapingRepository } from '../Repositories/ScrapingRepository';
+import { ScrapingRepository, IScrapingCollection } from '../Repositories/ScrapingRepository';
 import { SaveComicService } from '../../Database/Services/SaveComicService';
 import { SaveCollectionService } from '../../Database/Services/SaveCollectionService';
 import { Collection } from '../../Entities/Collection';
@@ -18,7 +18,7 @@ export class ScrapingMarvelCollectionsService implements IService {
 
   async execute(): Promise<Collection[]> {
     const { request_delay } = this.config;
-    const collections = await this.marvelRepository.getCollections();
+    const collections = this.removeCollectionsDuplicate(await this.marvelRepository.getCollections());
     return Promise.all(
       collections.map(({ link, collection }, i, { length }) => {
         return new Promise(resolve => {
@@ -27,7 +27,6 @@ export class ScrapingMarvelCollectionsService implements IService {
               .getComics(link)
               .then(comics => {
                 console.log(`${i}: RES => ${collection.name}`);
-                collection.comics = comics;
                 return Promise.all(
                   comics.map(comic => {
                     return this.saveComicService.execute(comic);
@@ -50,5 +49,14 @@ export class ScrapingMarvelCollectionsService implements IService {
         });
       }),
     );
+  }
+
+  private removeCollectionsDuplicate(collections: IScrapingCollection[]): IScrapingCollection[] {
+    const links = Array.from(new Set(collections.map(c => c.link)));
+    return links.reduce((acc, link) => {
+      const f = collections.find(c => c.link === link);
+      acc.push(f);
+      return acc;
+    }, []);
   }
 }

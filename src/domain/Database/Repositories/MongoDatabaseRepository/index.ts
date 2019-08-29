@@ -5,7 +5,7 @@ import { DatabaseRepository } from '../DatabaseRepository';
 import { Collection } from '../../../Entities/Collection';
 import { Comic } from '../../../Entities/Comic';
 import { Utils } from '../../../types.inject';
-import { ComicModel } from './ComicModel';
+import { ComicModel, IComic } from './ComicModel';
 import { CollectionModel } from './CollectionModel';
 import { Config } from '../../../config';
 
@@ -21,7 +21,7 @@ export class MongoDatabaseRepository implements DatabaseRepository {
   constructor(@inject(Utils.config) private config: Config) {}
 
   init() {
-    return mongoose.connect(this.db, { useNewUrlParser: true }).then(async con => {
+    return mongoose.connect(this.db, { useNewUrlParser: true, useCreateIndex: true }).then(async con => {
       if (this.config.drop_db) {
         await con.connection.db.dropDatabase();
         console.log('DB is dropped');
@@ -30,10 +30,23 @@ export class MongoDatabaseRepository implements DatabaseRepository {
     });
   }
 
-  async saveCollection(collection: Collection) {
-    const model = new CollectionModel(collection);
-    const doc = await model.save();
-    return doc.toJSON();
+  async saveCollection({ comics: c, ...collection }: Collection) {
+    const comics = await Promise.all(
+      c.map(comic => {
+        if ((<IComic>comic)._id) {
+          return Promise.resolve(comic);
+        }
+        return ComicModel.findOne({ id: comic.id }).then(r => <Comic>r);
+      }),
+    );
+    const model = new CollectionModel({ comics, ...collection });
+    try {
+      return (await model.save()).toJSON();
+    } catch (err) {
+      if (err.name === 'MongoError' && err.code === 11000) {
+        return (await CollectionModel.findOne({ id: collection.id })).toJSON();
+      }
+    }
   }
 
   async getCollectionById(id) {
@@ -52,8 +65,14 @@ export class MongoDatabaseRepository implements DatabaseRepository {
 
   async saveComic(comic: Comic) {
     const model = new ComicModel(comic);
-    const doc = await model.save();
-    return doc.toJSON();
+    try {
+      return (await model.save()).toJSON();
+    } catch (err) {
+      if (err.name === 'MongoError' && err.code === 11000) {
+        return (await ComicModel.findOne({ id: comic.id })).toJSON();
+      }
+      throw err;
+    }
   }
 
   async getComicById(id) {

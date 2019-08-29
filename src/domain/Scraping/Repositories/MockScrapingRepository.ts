@@ -10,6 +10,7 @@ export class MockScrapingRepository implements ScrapingRepository {
         return {
           link: faker.internet.url(),
           collection: {
+            id: faker.random.uuid.toString(),
             name: faker.hacker.noun(),
             comics: [],
           },
@@ -26,6 +27,7 @@ export class MockScrapingRepository implements ScrapingRepository {
   getComic() {
     const pages = Math.floor(Math.random() * 12 + 1);
     return Promise.resolve({
+      id: faker.random.uuid.toString(),
       title: `${faker.hacker.verb()} ${faker.hacker.abbreviation()}`,
       subtitle: faker.hacker.phrase(),
       description: faker.lorem.paragraph(),
