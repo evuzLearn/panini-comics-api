@@ -50,7 +50,7 @@ export class MongoDatabaseRepository implements DatabaseRepository {
   }
 
   async getCollectionById(id) {
-    const collection = await CollectionModel.findById(id)
+    const collection = await CollectionModel.findOne({ id })
       .populate('comics')
       .exec();
     return collection.toJSON();
@@ -76,7 +76,7 @@ export class MongoDatabaseRepository implements DatabaseRepository {
   }
 
   async getComicById(id) {
-    const comic = await ComicModel.findById(id);
+    const comic = await ComicModel.findOne({ id });
     return comic.toJSON();
   }
 
